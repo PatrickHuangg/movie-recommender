@@ -18,21 +18,15 @@ const style = {
   p: 4,
 };
 
-export default function MovieModal({img, index}) {
+export default function MovieModal({movie, services, index}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  console.log(img)
-  console.log(img.primaryImage)
-  console.log(img.primaryImage.url)
-
-
-
   return (
     <>
       <Button className='movieCard' onClick={handleOpen}>
-        <img src={img.primaryImage.url} alt={`Slide ${index}`} key={index} />
+        <img src={movie.Poster} alt={`Slide ${index}`} key={index} />
       </Button>
       <Modal
         open={open}
@@ -42,16 +36,26 @@ export default function MovieModal({img, index}) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {img.titleText.text}
-            {img.originalTitleText.text !== img.titleText.text && (
-              <div>{img.originalTitleText.text}</div>
-            )}
+            <h1>{movie.Title}</h1>
+            {/* {movie.originalTitleText.text !== movie.titleText.text && (
+              <div>{movie.originalTitleText.text}</div>
+            )} */}
             <div>
-              {`${img.releaseDate.day} / ${img.releaseDate.month} / ${img.releaseDate.year}`}
+              <h3>{movie.Rated} {movie.Year} {movie.Runtime} </h3>
+              <b>Genres:</b> {movie.Genre} <br></br>
+              <b>Directors:</b>  {movie.Director} <br></br>
+              <b>Casts:</b>  {movie.Actors} <br></br>
             </div>
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <h3>Plot</h3>
+            {movie.Plot}
+          </Typography>
+          <br></br>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <h3>Ratings</h3>
+            IMDb: {movie.imdbRating} <br></br>
+            Rotten Tomatoes: {movie.Ratings[1].Value}
           </Typography>
         </Box>
       </Modal>

@@ -30,7 +30,7 @@ const throttle = (cb, delay = 1000) => {
   };
 };
 
-const Slider = ({ images, title }) => {
+const Slider = ({ results, services, title }) => {
   const [sliderIndex, setSliderIndex] = useState(0);
   const itemsPerScreen = 4;
   const progressBarRef = useRef();
@@ -40,7 +40,7 @@ const Slider = ({ images, title }) => {
     if (!progressBarRef.current) return;
 
     progressBarRef.current.innerHTML = "";
-    const itemCount = images.length;
+    const itemCount = results.length;
     const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen);
 
     for (let i = 0; i < progressBarItemCount; i++) {
@@ -55,17 +55,17 @@ const Slider = ({ images, title }) => {
 
   useEffect(() => {
     calculateProgressBar();
-  }, [sliderIndex, images]);
+  }, [sliderIndex, results]);
 
   useEffect(() => {
     const handleResize = throttle(calculateProgressBar, 250);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [images]);
+  }, [results]);
 
   const handleLeftClick = () => {
     setSliderIndex((prevIndex) => {
-      const newIndex = (prevIndex - 1 + Math.ceil(images.length / itemsPerScreen)) % Math.ceil(images.length / itemsPerScreen);
+      const newIndex = (prevIndex - 1 + Math.ceil(results.length / itemsPerScreen)) % Math.ceil(results.length / itemsPerScreen);
       sliderRef.current.style.setProperty('--slider-index', newIndex);
       return newIndex;
     });
@@ -73,7 +73,7 @@ const Slider = ({ images, title }) => {
 
   const handleRightClick = () => {
     setSliderIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % Math.ceil(images.length / itemsPerScreen);
+      const newIndex = (prevIndex + 1) % Math.ceil(results.length / itemsPerScreen);
       sliderRef.current.style.setProperty('--slider-index', newIndex);
       return newIndex;
     });
@@ -90,8 +90,8 @@ const Slider = ({ images, title }) => {
           <div className="text">&#8249;</div>
         </button>
         <div className="slider" ref={sliderRef} style={{ '--slider-index': sliderIndex, '--items-per-screen': itemsPerScreen }}>
-          {images.map((img, index) => (
-            <MovieModal img={img} index={index}/>
+          {results.map((movie, index) => (
+            <MovieModal movie={movie} services={services[index]} index={index}/>
           ))}
         </div>
         <button className="handle right-handle" onClick={handleRightClick}>
