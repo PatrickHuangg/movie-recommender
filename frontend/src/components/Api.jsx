@@ -46,7 +46,7 @@ const fetchMovieServices = async (id) => {
 
   try {
     const response = await fetch(url, options);
-    const result = await response.text();
+    const result = await response.json();
     if (result && result !== null) {
       // return result.results[0].primaryImage.url;
       return result;
@@ -62,23 +62,24 @@ const fetchMovieServices = async (id) => {
 function ApiCall() {
   const [movieResults, setMovieResults] = useState([]);
   const [movieServices, setMovieServices] = useState([]);
-  const movieTitles = ['The Dark Knight', 'Inception', 'Titanic', 'The Matrix', 'Toy Story 2', 'Forrest Gump',
-    'Fight Club', 'Interstellar', 'Spirited Away', 'Parasite', 'The Lion King', 'Spider-Man: Across the Spider-Verse'];
+  const movieTitles = ['The Dark Knight','Inception', 'Titanic', 'The Matrix'];
+  // const movieTitles = ['The Dark Knight', 'Inception', 'Titanic', 'The Matrix', 'Toy Story 2', 'Forrest Gump',
+  //   'Fight Club', 'Interstellar', 'Spirited Away', 'Parasite', 'The Lion King', 'Spider-Man: Across the Spider-Verse'];
 
 
-  useEffect(() => {
-    const getInfos = async () => {
-      const movieInfos = await Promise.all(
-        movieTitles.map(async (title) => {
-          const info = await fetchMovieInfo(title);
-          return info;
-        })
-      );
-      setMovieResults(movieInfos.filter(info => info !== null)); // Remove any null values
-    };
+  // useEffect(() => {
+  //   const getInfos = async () => {
+  //     const movieInfos = await Promise.all(
+  //       movieTitles.map(async (title) => {
+  //         const info = await fetchMovieInfo(title);
+  //         return info;
+  //       })
+  //     );
+  //     setMovieResults(movieInfos.filter(info => info !== null)); // Remove any null values
+  //   };
 
-    getInfos();
-  }, []);
+  //   getInfos();
+  // }, []);
 
   // useEffect(() => {
   //   const getServices = async () => {
@@ -97,9 +98,63 @@ function ApiCall() {
   //     getServices();
   //   }
   // }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const movieInfoArray = await Promise.all(
+  //         movieTitles.map(async (title) => {
+  //           const info = await fetchMovieInfo(title);
+  //           return info;
+  //         })
+  //       );
+
+  //       const filteredMovieInfo = movieInfoArray.filter(info => info !== null);
+  //       setMovieResults(filteredMovieInfo);
+
+  //       const serviceInfoArray = await Promise.all(
+  //         filteredMovieInfo.map(async (movie) => {
+  //           const servicesInfo = await fetchMovieServices(movie.imdbID);
+  //           return servicesInfo;
+  //         })
+  //       );
+
+  //       const filteredServiceInfo = serviceInfoArray.filter(info => info !== null);
+  //       setMovieServices(filteredServiceInfo);
+
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const movieResults = await Promise.all(
+          movieTitles.map(async (title) => {
+            const info = await fetchMovieInfo(title);
+            // if (info) {
+            //   const servicesInfo = await fetchMovieServices(info.imdbID);
+            //   return { ...info, services: servicesInfo };
+            // }
+            return info;
+            return null;
+          })
+        );
+        setMovieResults(movieResults.filter(data => data !== null)); // Remove any null values
+      } catch (error) {
+        console.error('Error fetching movie data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   return (
-    <Slider results={movieResults} services={movieServices} title='Top Picks For You'/>
+    <Slider results={movieResults} title='Top Picks For You'/>
   )
 }
 

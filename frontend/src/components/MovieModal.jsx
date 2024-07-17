@@ -16,6 +16,7 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  overflowY: 'auto',
 };
 
 export default function MovieModal({movie, services, index}) {
@@ -23,9 +24,12 @@ export default function MovieModal({movie, services, index}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  console.log(movie)
+
   return (
     <>
       <Button className='movieCard' onClick={handleOpen}>
+        {/* <img src={movie.services.imageSet.horizontalPoster.w1080} alt={`Slide ${index}`} key={index} /> */}
         <img src={movie.Poster} alt={`Slide ${index}`} key={index} />
       </Button>
       <Modal
@@ -56,6 +60,35 @@ export default function MovieModal({movie, services, index}) {
             <h3>Ratings</h3>
             IMDb: {movie.imdbRating} <br></br>
             Rotten Tomatoes: {movie.Ratings[1].Value}
+          </Typography>
+          <br></br>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <h3>Where to Watch</h3>
+            {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+              {movie.services.streamingOptions.au.map((option) => {
+                if (option.type === "buy" || option.type === "rent") {
+                  return (
+                    <span>
+                      <img src={option.service.imageSet.darkThemeImage} alt="SVG Image" />
+                      <div style={{ fontSize: '16px'}}>
+                        Price: {option.price.formatted}
+                        <br />
+                        Type: {option.type}
+                      </div>
+                    </span>
+                )}
+                if (option.type === "subscription") {
+                  return (
+                    <span>
+                        <img src={option.service.imageSet.darkThemeImage} alt="SVG Image" />
+                        <div style={{ fontSize: '16px'}}>
+                          Type: {option.type}
+                        </div>
+                      </span>
+                )}
+                return null;
+              })}
+            </div> */}
           </Typography>
         </Box>
       </Modal>

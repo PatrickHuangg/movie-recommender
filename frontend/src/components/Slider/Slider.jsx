@@ -79,6 +79,9 @@ const Slider = ({ results, services, title }) => {
     });
   };
 
+
+  console.log(results)
+  console.log(services)
   return (
     <div className="row">
       <div className="header">
@@ -91,7 +94,7 @@ const Slider = ({ results, services, title }) => {
         </button>
         <div className="slider" ref={sliderRef} style={{ '--slider-index': sliderIndex, '--items-per-screen': itemsPerScreen }}>
           {results.map((movie, index) => (
-            <MovieModal movie={movie} services={services[index]} index={index}/>
+            <MovieModal movie={movie} index={index}/>
           ))}
         </div>
         <button className="handle right-handle" onClick={handleRightClick}>
