@@ -1,0 +1,27 @@
+# Node.js modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Optional npm cache directory
+.npm
+
+# Build files (if applicable)
+dist/
+build/
+
+# Temporary files and directories
+tmp/
+temp/
+
+# VSCode settings (if you're using VSCode)
+.vscode/
