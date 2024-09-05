@@ -1,11 +1,13 @@
 import './App.css';
 import PrimarySearchAppBar from './components/Navbar.jsx'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MultipleItems from './components/MultipleItems.jsx';
 import Slider from './components/Slider/Slider.jsx';
 import cover1 from './pictures/cover1.jpg';
 import cover2 from './pictures/cover2.jpg';
 import cover3 from './pictures/cover3.jpg';
 import cover4 from './pictures/cover4.jpg';
+import PageRoutes from './components/PageRoutes.jsx';
 
 import ApiCall from './components/Api.jsx';
 
@@ -27,9 +29,12 @@ function App() {
 
   return (
     <div className="App">
-      <PrimarySearchAppBar />
-        <ApiCall/>
-      <br></br>
+      <Router>
+        {/* <PrimarySearchAppBar />
+        <ApiCall />
+        <br></br> */}
+        <PageRoutes />
+      </Router>
       {/* <Slider images={images1} title='Top Shows'/> */}
     </div>
   );

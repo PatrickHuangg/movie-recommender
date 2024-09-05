@@ -1,0 +1,96 @@
+.FindTaste {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensures the full view height is used */
+  background-color: #282c34; /* General background color */
+  padding-top: 70px; /* Adjust for navbar height */
+}
+
+.recommendation-section {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  width: 85%; /* Slightly increase the width */
+  max-width: 1800px; /* Increase the maximum width */
+  min-height: 500px; /* Minimum height so it doesn't collapse */
+  height: 90vh;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  background-color: rgba(0, 0, 0, 0.7); /* Backup color */
+}
+
+/* The background overlay div for the image */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://d2thvodm3xyo6j.cloudfront.net/media/2017/03/56c7d70c74a12bc5-600x338.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3; /* Control the opacity of the background image */
+  z-index: -1; /* Place it behind the content */
+  border-radius: 20px; /* Same rounded corners */
+}
+
+.recommendation-text {
+  z-index: 2; /* Ensure the content stays above the background */
+  max-width: 50%;
+}
+
+.recommendation-text h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.recommendation-text p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.calculate-button {
+  padding: 10px 20px;
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.calculate-button:hover {
+  background-color: #e0a800;
+}
+
+.recommendation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.recommendation-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.recommendation-item h2 {
+  font-size: 1.2rem;
+}
+
+.platform {
+  font-style: italic;
+  color: lightgray;
+}

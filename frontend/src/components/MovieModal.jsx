@@ -64,11 +64,11 @@ export default function MovieModal({movie, services, index}) {
           <br></br>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <h3>Where to Watch</h3>
-            {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
               {movie.services.streamingOptions.au.map((option) => {
                 if (option.type === "buy" || option.type === "rent") {
                   return (
-                    <span>
+                    <span onClick={() => window.open(option.link, '_blank', 'noopener,noreferrer')}>
                       <img src={option.service.imageSet.darkThemeImage} alt="SVG Image" />
                       <div style={{ fontSize: '16px'}}>
                         Price: {option.price.formatted}
@@ -79,7 +79,7 @@ export default function MovieModal({movie, services, index}) {
                 )}
                 if (option.type === "subscription") {
                   return (
-                    <span>
+                    <span onClick={() => window.open(option.link, '_blank', 'noopener,noreferrer')}>
                         <img src={option.service.imageSet.darkThemeImage} alt="SVG Image" />
                         <div style={{ fontSize: '16px'}}>
                           Type: {option.type}
@@ -88,7 +88,7 @@ export default function MovieModal({movie, services, index}) {
                 )}
                 return null;
               })}
-            </div> */}
+            </div>
           </Typography>
         </Box>
       </Modal>

@@ -4,6 +4,8 @@ import Slider from './Slider/Slider';
 
 // API that fetches the basic information about a movie, such as title, release date, directors and ratings
 const fetchMovieInfo = async (title) => {
+  const movieAPIKey = process.env.REACT_APP_FETCH_MOVIE_API;
+  console.log(movieAPIKey)
   // const url = `https://moviesdatabase.p.rapidapi.com/titles/search/title/${title}?exact=true&titleType=movie`;
   // const options = {
   //   method: 'GET',
@@ -12,7 +14,7 @@ const fetchMovieInfo = async (title) => {
   //     'x-rapidapi-host': 'moviesdatabase.p.rapidapi.com'
   //   }
   // };
-  const url = `http://www.omdbapi.com/?apikey=3fcdca11&t=${title}`;
+  const url = `http://www.omdbapi.com/?apikey=${movieAPIKey}&t=${title}`;
   const options = {
     method: 'GET',
   };
@@ -35,11 +37,13 @@ const fetchMovieInfo = async (title) => {
 
 // API that will get the movie card images and services available to users so they can view the movie
 const fetchMovieServices = async (id) => {
+  const servicesAPIKey = process.env.REACT_APP_FETCH_SERVICES_API;
+
   const url = `https://streaming-availability.p.rapidapi.com/shows/${id}?series_granularity=episode&output_language=en`;
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': 'b610d7269bmsh5ea0d899abbb9e8p199e7ejsn4c57ccd01931',
+      'x-rapidapi-key': servicesAPIKey,
       'x-rapidapi-host': 'streaming-availability.p.rapidapi.com'
     }
   };
@@ -62,7 +66,8 @@ const fetchMovieServices = async (id) => {
 function ApiCall() {
   const [movieResults, setMovieResults] = useState([]);
   const [movieServices, setMovieServices] = useState([]);
-  const movieTitles = ['The Dark Knight','Inception', 'Titanic', 'The Matrix'];
+  const movieTitles = ['The Dark Knight'];
+    // ,'Inception', 'Titanic', 'The Matrix'];
   // const movieTitles = ['The Dark Knight', 'Inception', 'Titanic', 'The Matrix', 'Toy Story 2', 'Forrest Gump',
   //   'Fight Club', 'Interstellar', 'Spirited Away', 'Parasite', 'The Lion King', 'Spider-Man: Across the Spider-Verse'];
 
@@ -135,12 +140,11 @@ function ApiCall() {
         const movieResults = await Promise.all(
           movieTitles.map(async (title) => {
             const info = await fetchMovieInfo(title);
-            // if (info) {
-            //   const servicesInfo = await fetchMovieServices(info.imdbID);
-            //   return { ...info, services: servicesInfo };
-            // }
+            if (info) {
+              const servicesInfo = await fetchMovieServices(info.imdbID);
+              return { ...info, services: servicesInfo };
+            }
             return info;
-            return null;
           })
         );
         setMovieResults(movieResults.filter(data => data !== null)); // Remove any null values
@@ -154,7 +158,9 @@ function ApiCall() {
 
 
   return (
-    <Slider results={movieResults} title='Top Picks For You'/>
+    <div className='whole'>
+      <Slider results={movieResults} title='Top Picks For You'/>
+    </div>
   )
 }
 
